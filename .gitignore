@@ -1,0 +1,19 @@
+# Decrypted/temp files
+decrypted.pdf
+gis_algo_decrypted.pdf
+*_decrypted.pdf
+temp_pages/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
