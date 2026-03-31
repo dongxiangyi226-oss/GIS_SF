@@ -164,3 +164,31 @@ def segments_proper_intersect(p1, p2, q1, q2, eps=1e-10):
     d4 = cross2d(vec(q1,q2),vec(q1,p2))    
     return d1*d2 < -eps and d3*d4 < -eps
 
+# 判断点是否在矩形中
+
+def rect_contains_point(rect, q):
+    xmin,ymin,xmax,ymax = rect  # 赋值给元组
+    return xmin <= q[0] <= xmax and ymin <= q[1] <= ymax
+
+# 判断线段/折线/多边形是否在矩形中——因为矩形属于🤮多边形，所以只需要判断所有的点是否在矩形中
+
+def segment_in_rect(rect, p1, p2): # 判断线段
+    return rect_contains_point(rect,p1) and rect_contains_point(rect,p2)
+
+def polyline_in_rect(rect, points): # 判断折线
+    return all(rect_contains_point(rect,p) for p in points)
+
+def polygon_in_rect(rect, vertices): # 判断多边形
+    return all(rect_contains_point(rect,v) for v in vertices)
+
+def rect_in_rect(outer, inner): # 判断矩形是否在矩形中
+    return (outer[0] <= inner[0] and inner[2] <= outer[2] and inner[3] <= outer[3] and outer[1] <= inner[1])
+
+def circle_in_rect(rect, center, radius): # 判断⚪是否在矩形内
+    xmin,ymin,xmax,ymax = rect
+    cx,cy = center
+    return (cx - radius >= xmin and cx + radius <= xmax and cy - radius >= ymin and cy + radius <= ymax)
+
+
+
+

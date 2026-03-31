@@ -8,6 +8,7 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
+import matplotlib.patches as patches
 
 
 # ── 色板 ─────────────────────────────────────────────────────────────────
@@ -337,3 +338,24 @@ class CanvasWidget:
                 ),
                 zorder=4,
             )
+    # 绘制轴对齐矩形
+    def draw_rect(self,rect,color = '#1565C0',label = None):
+        xmin,ymin,xmax,ymax = rect
+        width,height = xmax - xmin,ymax-ymin
+        r = patches.Rectangle((xmin,ymin),width,height,
+                              linewidth = 2,edgecolor = '#FF0000' ,
+                              facecolor = color,alpha = 0.1)
+        self._ax.add_patch(r)
+        if label:
+            self._ax.text(xmin + width/2,ymax + 1,label,
+                          ha = 'center',fontsize = 9,color = color)
+    
+    # 绘制圆
+    def draw_circle(self,center,radius,color = '#E65100',label = None):
+        c = patches.Circle(center,radius,
+                           linewidth = 2,edgecolor = color,
+                           facecolor = color,alpha = 0.1)
+        self._ax.add_patch(c)
+        if label:
+            self._ax.text(center[0],center[1] + radius + 1,label,
+                          ha = 'center',fontsize = 9,color = color)
